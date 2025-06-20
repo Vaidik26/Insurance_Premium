@@ -2,8 +2,12 @@ numpy
 pandas
 dill
 scikit-learn
-sqlite3
 dataclasses
 dotenv
 mysql.connector
+matplotlib
+seaborn
+catboost
+xgboost
+
 #-e.
