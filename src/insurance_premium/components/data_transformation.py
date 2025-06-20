@@ -10,21 +10,19 @@ from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split
 import logging
 
-from src.utils import save_object, create_directories
-from src.exception import CustomException
+from insurance_premium.utils import save_object, create_directories
+from insurance_premium.exception import CustomException
 
 # Logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-
 @dataclass
 class DataTransformationConfig:
     preprocessor_path: str = os.path.join("artifacts", "preprocessor.pkl")
     test_size: float = 0.2
     random_state: int = 42
-
 
 class DataTransformation:
     def __init__(self, config: DataTransformationConfig):
@@ -38,12 +36,8 @@ class DataTransformation:
             # Drop target before preprocessing
             features_df = df.drop(columns=[self.target_column])
 
-            numerical_columns = features_df.select_dtypes(
-                include=["int64", "float64"]
-            ).columns.tolist()
-            categorical_columns = features_df.select_dtypes(
-                include=["object", "category"]
-            ).columns.tolist()
+            numerical_columns = features_df.select_dtypes(include=["int64", "float64"]).columns.tolist()
+            categorical_columns = features_df.select_dtypes(include=["object", "category"]).columns.tolist()
 
             logging.info(f"Numerical columns: {numerical_columns}")
             logging.info(f"Categorical columns: {categorical_columns}")
@@ -59,15 +53,12 @@ class DataTransformation:
             cat_pipeline = Pipeline(
                 steps=[
                     ("imputer", SimpleImputer(strategy="most_frequent")),
-                    (
-                        "encoder",
-                        OneHotEncoder(handle_unknown="ignore", sparse_output=False),
-                    ),
+                    ("encoder", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
                 ]
             )
 
             preprocessor = ColumnTransformer(
-                [
+                transformers=[
                     ("num_pipeline", num_pipeline, numerical_columns),
                     ("cat_pipeline", cat_pipeline, categorical_columns),
                 ]
@@ -102,8 +93,8 @@ class DataTransformation:
             create_directories([os.path.dirname(self.config.preprocessor_path)])
             save_object(self.config.preprocessor_path, preprocessor)
             logging.info(f"Preprocessor saved at {self.config.preprocessor_path}")
-
             logging.info("Data transformation completed.")
+
             return (
                 X_train_transformed,
                 X_test_transformed,

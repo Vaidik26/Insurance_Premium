@@ -9,5 +9,7 @@ matplotlib
 seaborn
 catboost
 xgboost
+sqlalchemy 
+pymysql
 
 #-e.

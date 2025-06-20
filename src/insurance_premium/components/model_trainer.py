@@ -2,16 +2,16 @@ import os
 import sys
 import logging
 from dataclasses import dataclass
+import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
-import numpy as np
-
 from catboost import CatBoostRegressor
-from src.utils import save_object
-from src.exception import CustomException
 
-# Logging
+from insurance_premium.utils import save_object
+from insurance_premium.exception import CustomException
+
+# Setup logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
@@ -27,17 +27,21 @@ class ModelTrainer:
         self.config = config
 
     def evaluate_model(self, model, X_train, y_train, X_test, y_test):
-        model.fit(X_train, y_train)
-        y_train_pred = model.predict(X_train)
-        y_test_pred = model.predict(X_test)
+        try:
+            model.fit(X_train, y_train)
+            y_test_pred = model.predict(X_test)
 
-        metrics = {
-            "R2 Score": r2_score(y_test, y_test_pred),
-            "MAE": mean_absolute_error(y_test, y_test_pred),
-            "RMSE": np.sqrt(mean_squared_error(y_test, y_test_pred)),
-        }
+            metrics = {
+                "R2 Score": round(r2_score(y_test, y_test_pred), 4),
+                "MAE": round(mean_absolute_error(y_test, y_test_pred), 2),
+                "RMSE": round(np.sqrt(mean_squared_error(y_test, y_test_pred)), 2),
+            }
 
-        return metrics, model
+            return metrics, model
+
+        except Exception as e:
+            logging.warning(f"Model {model.__class__.__name__} failed: {e}")
+            return None, None
 
     def initiate_model_training(self, X_train, X_test, y_train, y_test):
         try:
@@ -70,8 +74,12 @@ class ModelTrainer:
                 metrics, trained_model = self.evaluate_model(
                     model, X_train, y_train, X_test, y_test
                 )
+
+                if metrics is None:
+                    continue  # Skip failed model
+
                 logging.info(
-                    f"{name} R2: {metrics['R2 Score']:.4f}, MAE: {metrics['MAE']:.2f}, RMSE: {metrics['RMSE']:.2f}"
+                    f"{name} R2: {metrics['R2 Score']}, MAE: {metrics['MAE']}, RMSE: {metrics['RMSE']}"
                 )
 
                 if metrics["R2 Score"] > best_score:
@@ -80,12 +88,18 @@ class ModelTrainer:
                     best_metrics = metrics
                     best_model_name = name
 
+            if not best_model:
+                raise ValueError("No model trained successfully.")
+
             # Save the best model
             save_object(self.config.model_path, best_model)
-            logging.info(f"Best model: {best_model_name} with R2: {best_score:.4f}")
+            logging.info(f"Best model: {best_model_name} with R2: {best_score}")
             logging.info(f"Model saved at: {self.config.model_path}")
 
-            return best_model_name, best_metrics
+            # Add model name to metrics
+            best_metrics["Best Model"] = best_model_name
+
+            return best_model, best_metrics
 
         except Exception as e:
             raise CustomException(e, sys)

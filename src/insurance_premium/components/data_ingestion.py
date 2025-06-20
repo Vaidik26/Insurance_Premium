@@ -3,13 +3,13 @@ from dotenv import load_dotenv
 import os
 import sys
 import pandas as pd
-import mysql.connector
+from sqlalchemy import create_engine
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 import logging
 
-from src.exception import CustomException
-from src.utils import create_directories, save_dataframe_as_csv
+from insurance_premium.exception import CustomException
+from insurance_premium.utils import create_directories, save_dataframe_as_csv
 
 # Load environment variables
 load_dotenv()
@@ -47,32 +47,20 @@ class DataIngestion:
 
     def fetch_data_from_db(self) -> pd.DataFrame:
         try:
-            logging.info("Connecting to MySQL database...")
+            logging.info("Connecting to MySQL database with SQLAlchemy...")
 
             # Ensure all credentials are present
             if not all(self.db_config.values()):
                 raise ValueError("Missing DB credentials in environment variables.")
 
-            # Connect using the correct database
-            conn = mysql.connector.connect(
-                host=self.db_config["host"],
-                user=self.db_config["user"],
-                password=self.db_config["password"],
-                database=self.db_config["database"],  # explicitly selecting DB
-            )
+            # Create SQLAlchemy engine
+            engine_str = f"mysql+pymysql://{self.db_config['user']}:{self.db_config['password']}@{self.db_config['host']}/{self.db_config['database']}"
+            engine = create_engine(engine_str)
 
-            cursor = conn.cursor()
-            cursor.execute(self.config.query)
+            # Execute query
+            df = pd.read_sql(self.config.query, con=engine)
 
-            rows = cursor.fetchall()
-            columns = [desc[0] for desc in cursor.description]
-
-            df = pd.DataFrame(rows, columns=columns)
-
-            cursor.close()
-            conn.close()
-
-            logging.info("Data fetched successfully from MySQL.")
+            logging.info("Data fetched successfully from MySQL using SQLAlchemy.")
             return df
 
         except Exception as e:

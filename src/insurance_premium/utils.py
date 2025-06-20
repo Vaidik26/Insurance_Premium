@@ -5,7 +5,7 @@ import pandas as pd
 from pathlib import Path
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 
-from src.exception import CustomException  # Update this path as needed
+from insurance_premium.exception import CustomException
 import sys
 
 

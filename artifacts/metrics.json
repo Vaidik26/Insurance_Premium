@@ -1,0 +1,6 @@
+{
+    "R2 Score": 0.818,
+    "MAE": 2928.25,
+    "RMSE": 5388.04,
+    "Best Model": "GradientBoosting"
+}
