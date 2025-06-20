@@ -1,6 +1,7 @@
 import os
 import dill
 import numpy as np
+import pandas as pd
 from pathlib import Path
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 
@@ -42,6 +43,16 @@ def get_file_size(path: str) -> str:
     try:
         size = os.path.getsize(path) / 1024  # size in KB
         return f"{np.round(size, 2)} KB"
+    except Exception as e:
+        raise CustomException(e, sys)
+
+
+def save_dataframe_as_csv(df: pd.DataFrame, file_path: str) -> None:
+    """Saves a pandas DataFrame to a CSV file with exception handling."""
+    try:
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)
+        df.to_csv(file_path, index=False)
     except Exception as e:
         raise CustomException(e, sys)
 
