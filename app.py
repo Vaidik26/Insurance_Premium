@@ -1,8 +1,12 @@
-from src.components.data_ingestion import DataIngestion, DataIngestionConfig
+from src.components.data_transformation import (
+    DataTransformation,
+    DataTransformationConfig,
+)
+import pandas as pd
 
-config = DataIngestionConfig(query="SELECT * FROM insurance")
+# Load your raw DataFrame (from MySQL or CSV)
+df = pd.read_csv("artifacts/raw_data.csv")
 
-ingestion = DataIngestion(config)
-train_path, test_path = ingestion.initiate_data_ingestion()
-print(f"Train data saved at: {train_path}")
-print(f"Test data saved at: {test_path}")
+# Initialize and run
+transformer = DataTransformation(DataTransformationConfig())
+X_train, X_test, y_train, y_test = transformer.initiate_data_transformation(df)
