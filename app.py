@@ -1,25 +1,42 @@
-from src.components.data_transformation import (
-    DataTransformation,
-    DataTransformationConfig,
-)
+from flask import Flask, render_template, request
 import pandas as pd
-from src.components.model_trainer import ModelTrainer, ModelTrainerConfig
+import numpy as np
+import pickle
+import os
+
+app = Flask(__name__)
+
+# Load preprocessor and model
+preprocessor = pickle.load(open("artifacts/preprocessor.pkl", "rb"))
+model = pickle.load(open("artifacts/model.pkl", "rb"))
 
 
-# Load your raw DataFrame (from MySQL or CSV)
-df = pd.read_csv("artifacts/raw_data.csv")
-
-# Initialize and run
-transformer = DataTransformation(DataTransformationConfig())
-X_train, X_test, y_train, y_test = transformer.initiate_data_transformation(df)
+@app.route("/")
+def home():
+    return render_template("index.html")
 
 
-trainer = ModelTrainer(ModelTrainerConfig())
-best_model_name, metrics = trainer.initiate_model_training(
-    X_train, X_test, y_train, y_test
-)
+@app.route("/predict", methods=["GET", "POST"])
+def predict():
+    if request.method == "POST":
+        data = {
+            "age": int(request.form["age"]),
+            "sex": request.form["sex"],
+            "bmi": float(request.form["bmi"]),
+            "children": int(request.form["children"]),
+            "smoker": request.form["smoker"],
+            "region": request.form["region"],
+        }
 
-print(f"\n Best model: {best_model_name}")
-print(" Metrics:")
-for k, v in metrics.items():
-    print(f"{k}: {v:.4f}")
+        input_df = pd.DataFrame([data])
+        transformed_input = preprocessor.transform(input_df)
+        prediction = model.predict(transformed_input)[0]
+        predicted_price = round(prediction, 2)
+
+        return render_template("predict.html", prediction=predicted_price)
+
+    return render_template("predict.html", prediction=None)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

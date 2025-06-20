@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Predict Insurance Premium</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: #e9f4fb;
+        }
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 5%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2b7a78;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="form-container">
+        <h2 class="mb-4 text-center">Enter Your Details</h2>
+
+        {% if prediction is not none %}
+        <div class="result">
+            🧾 Estimated Insurance Premium: ₹{{ prediction }}
+        </div>
+        {% endif %}
+
+        <form action="/predict" method="POST">
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="age">Age</label>
+                    <input type="number" class="form-control" name="age" required>
+                </div>
+                <div class="col">
+                    <label for="sex">Sex</label>
+                    <select class="form-control" name="sex" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="bmi">BMI</label>
+                    <input type="number" step="0.1" class="form-control" name="bmi" required>
+                </div>
+                <div class="col">
+                    <label for="children">Children</label>
+                    <input type="number" class="form-control" name="children" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="smoker">Smoker</label>
+                    <select class="form-control" name="smoker" required>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="region">Region</label>
+                    <select class="form-control" name="region" required>
+                        <option value="northeast">Northeast</option>
+                        <option value="northwest">Northwest</option>
+                        <option value="southeast">Southeast</option>
+                        <option value="southwest">Southwest</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Predict Premium</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insurance Premium Predictor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url("/static/insurance_theme.jpg");
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            height: 100vh;
+        }
+        .overlay {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 3rem;
+            border-radius: 12px;
+        }
+        .btn-custom {
+            background-color: #00aaff;
+            color: white;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #008fcc;
+        }
+    </style>
+</head>
+<body class="d-flex align-items-center justify-content-center">
+    <div class="container text-center overlay">
+        <h1 class="display-4">Insurance Premium Predictor</h1>
+        <p class="lead">Easily estimate your insurance premium using AI models trained on health data.</p>
+        <a href="/predict" class="btn btn-custom btn-lg mt-3">Get Started</a>
+    </div>
+</body>
+</html>
