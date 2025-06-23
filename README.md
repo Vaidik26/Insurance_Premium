@@ -36,9 +36,6 @@ Insurance_Premium_Prediction/
 ├── setup.py # Setup script for packaging
 ├── README.md # Project documentation
 └── .gitignore # Files ignored by Git
----
-
-
 
 
 ## 🖥️ User Interface (UI)
@@ -61,16 +58,13 @@ cd Insurance_Premium_Prediction
 
 2. Create and Activate Virtual Environment
 
-# Create virtual environment
-
+Create virtual environment
 python -m venv venv
 
-# Activate on Windows
-
+Activate on Windows
 venv\Scripts\activate
 
-# Activate on Unix or Mac
-
+Activate on Unix or Mac
 source venv/bin/activate
 
 3. Install Dependencies
@@ -78,9 +72,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 4. Train the Model
-
 python src/Insurance/pipeline/training.py
-
 
 #This will:
 
@@ -93,8 +85,7 @@ python src/Insurance/pipeline/training.py
 4. Save model and metrics to artifacts/
 
 
-# 🚀 Run the Web App (Flask)
-
+🚀 Run the Web App (Flask)
 
 python app.py
 
@@ -120,7 +111,6 @@ Logging and error handling are included
 🐞 Custom logging and exception handling
 
 📁 Modular and reusable code
-
 
 📉 Sample Input Data
 
