@@ -48,7 +48,6 @@ Insurance_Premium_Prediction/
 
 1. Clone the Repository
 
-```bash
 git clone https://github.com/your-username/Insurance_Premium_Prediction.git
 
 cd Insurance_Premium_Prediction
@@ -69,12 +68,10 @@ source venv/bin/activate
 
 3. Install Dependencies
 
-bash
 pip install -r requirements.txt
 
 4. Train the Model
 
-bash
 python src/Insurance/pipeline/training.py
 
 This will:
@@ -89,7 +86,6 @@ Save model and metrics to artifacts/
 
 🚀 Run the Web App (Flask)
 
-bash
 python app.py
 
 Navigate to http://127.0.0.1:5000 in your browser.
