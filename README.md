@@ -1,4 +1,4 @@
-# 🛡️ Insurance Premium Prediction
+## 🛡️ Insurance Premium Prediction
 
 This project predicts the **insurance premium amount** a customer should be charged based on features like age, sex, BMI, smoking status, region, and number of children. The goal is to use machine learning to build a regression model that helps insurance companies set accurate premiums.
 
@@ -37,13 +37,18 @@ Insurance_Premium_Prediction/
 ├── README.md # Project documentation
 └── .gitignore # Files ignored by Git
 ---
+
+
 ## User Interface (UI)
 
-![alt text](<Screenshot 2025-06-20 112908.png>)
 
-![alt text](<Screenshot 2025-06-20 112853.png>)
+![Screenshot 2025-06-20 112853](https://github.com/user-attachments/assets/a4bc566b-740c-4282-866a-9dfcb8a52d14)
 
----
+
+![Screenshot 2025-06-20 112908](https://github.com/user-attachments/assets/64f78fef-df87-4551-b915-0e4e566c5cf4)
+
+
+
 ## ⚙️ Setup Instructions
 
 1. Clone the Repository
@@ -74,17 +79,20 @@ pip install -r requirements.txt
 
 python src/Insurance/pipeline/training.py
 
-This will:
 
-Ingest the data
+#This will:
 
-Transform features (encoding, scaling)
+1. Ingest the data
 
-Train the CatBoost model using RandomizedSearchCV
+2. Transform features (encoding, scaling)
 
-Save model and metrics to artifacts/
+3. Train the CatBoost model using RandomizedSearchCV
 
-🚀 Run the Web App (Flask)
+4. Save model and metrics to artifacts/
+
+
+# 🚀 Run the Web App (Flask)
+
 
 python app.py
 
@@ -96,7 +104,8 @@ See results and download predictions
 
 Logging and error handling are included
 
-✅ Features
+
+# ✅ Features
 
 🧼 Robust preprocessing (missing values, encoding, scaling)
 
@@ -110,14 +119,17 @@ Logging and error handling are included
 
 📁 Modular and reusable code
 
+
 📉 Sample Input Data
 
 age	sex	bmi	children	smoker	region
 45	male	29.8	2	yes	southeast
 
-Prediction Output:
+
+# Prediction Output:
 
 Predicted Premium: ₹27,845.12
+
 
 📈 Evaluation Metrics
 
@@ -127,7 +139,9 @@ MAE: 2631.18
 RMSE: 4152.67
 R² Score: 0.87
 
-📌 Future Work
+
+# 📌 Future Work
+
 Add DVC for pipeline versioning
 
 CI/CD with GitHub Actions
@@ -136,7 +150,8 @@ Containerization with Docker
 
 Deploy to AWS/GCP
 
-🙌 Acknowledgments
+
+# 🙌 Acknowledgments
 
 Kaggle Dataset
 
@@ -144,13 +159,14 @@ CatBoost Documentation
 
 Flask for web deployment
 
-📬 Contact
+
+# 📬 Contact
 
 Vaidik Yadav
 📧 vaidiky90@gmail.com
 🌐 LinkedIn : https://www.linkedin.com/in/vaidik-yadav-260a60248/
 
-📝 License
+# 📝 License
 This project is licensed under the MIT License.
 
 ---
