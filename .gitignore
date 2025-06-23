@@ -10,6 +10,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# UI Images
+Screenshot 2025-06-20 112853.png
+Screenshot 2025-06-20 112908.png
+
+# Venv
+venv
 
 # C extensions
 *.so
@@ -161,6 +167,9 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+build
+Insurance_Premium_Prediction.egg-info
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
