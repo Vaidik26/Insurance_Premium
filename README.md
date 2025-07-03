@@ -114,8 +114,9 @@ Logging and error handling are included
 
 📉 Sample Input Data
 
-age	sex	bmi	children	smoker	region
-45	male	29.8	2	yes	southeast
+| age | sex  | bmi  | children | smoker | region    |
+| --- | ---- | ---- | -------- | ------ | --------- |
+| 45  | male | 29.8 | 2        | yes    | southeast |
 
 
 ## Prediction Output:
