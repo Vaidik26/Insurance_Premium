@@ -128,7 +128,9 @@ Predicted Premium: ₹27,845.12
 Stored in artifacts/metrics.json after training.
 
 MAE: 2631.18
+
 RMSE: 4152.67
+
 R² Score: 0.87
 
 
@@ -155,8 +157,11 @@ Flask for web deployment
 ## 📬 Contact
 
 Vaidik Yadav
+
 📧 vaidiky90@gmail.com
+
 🌐 LinkedIn : https://www.linkedin.com/in/vaidik-yadav-260a60248/
 
 ## 📝 License
+
 This project is licensed under the MIT License.
