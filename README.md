@@ -1,4 +1,4 @@
-## 🛡️ Insurance Premium Prediction
+# 🛡️ Insurance Premium Prediction
 
 This project predicts the **insurance premium amount** a customer should be charged based on features like age, sex, BMI, smoking status, region, and number of children. The goal is to use machine learning to build a regression model that helps insurance companies set accurate premiums.
 
@@ -85,7 +85,7 @@ python src/Insurance/pipeline/training.py
 4. Save model and metrics to artifacts/
 
 
-🚀 Run the Web App (Flask)
+## 🚀 Run the Web App (Flask)
 
 python app.py
 
@@ -98,7 +98,7 @@ See results and download predictions
 Logging and error handling are included
 
 
-# ✅ Features
+## ✅ Features
 
 🧼 Robust preprocessing (missing values, encoding, scaling)
 
@@ -118,12 +118,12 @@ age	sex	bmi	children	smoker	region
 45	male	29.8	2	yes	southeast
 
 
-# Prediction Output:
+## Prediction Output:
 
 Predicted Premium: ₹27,845.12
 
 
-📈 Evaluation Metrics
+## 📈 Evaluation Metrics
 
 Stored in artifacts/metrics.json after training.
 
@@ -132,7 +132,7 @@ RMSE: 4152.67
 R² Score: 0.87
 
 
-# 📌 Future Work
+## 📌 Future Work
 
 Add DVC for pipeline versioning
 
@@ -143,7 +143,7 @@ Containerization with Docker
 Deploy to AWS/GCP
 
 
-# 🙌 Acknowledgments
+## 🙌 Acknowledgments
 
 Kaggle Dataset
 
@@ -152,11 +152,11 @@ CatBoost Documentation
 Flask for web deployment
 
 
-# 📬 Contact
+## 📬 Contact
 
 Vaidik Yadav
 📧 vaidiky90@gmail.com
 🌐 LinkedIn : https://www.linkedin.com/in/vaidik-yadav-260a60248/
 
-# 📝 License
+## 📝 License
 This project is licensed under the MIT License.
